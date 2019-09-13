@@ -1,0 +1,5 @@
+# This directory is meant to have runtime data. Ignore it from going to git
+*
+# Except this git ignore file and the dir's readme:)
+!README.md
+!.gitignore

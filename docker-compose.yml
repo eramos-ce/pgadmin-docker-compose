@@ -1,0 +1,28 @@
+version: "3"
+services:
+  pgadmin:
+    image: "dpage/pgadmin4:latest"
+    container_name: pgadmin-svr
+    volumes:
+      # Mount dir to maintain config files
+      - ./pgadmin:/var/lib/pgadmin
+      # Override configuration settings
+      # - config_local.py:/pgadmin4/config_local.py
+      # Load server definitions
+      # - servers.json:/pgadmin4/servers.json
+      # TLS options for certs
+      - ./server.cert:/certs/server.cert
+      - ./server.key:/certs/server.key
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@localhost.com
+      - PGADMIN_DEFAULT_PASSWORD=password
+      - PGADMIN_ENABLE_TLS=true
+      # - PGADMIN_LISTEN_ADDRESS="::"
+      # - PGADMIN_LISTEN_PORT=443
+      - GUNICORN_THREADS=25
+    expose:
+      - "80"
+      - "443"
+    ports:
+      - 3443:443
+      - 3380:80
